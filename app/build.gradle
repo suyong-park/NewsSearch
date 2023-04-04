@@ -1,0 +1,93 @@
+plugins {
+    id 'kotlin-kapt'
+    id 'kotlinx-serialization'
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'com.google.dagger.hilt.android'
+    id 'org.jetbrains.kotlin.plugin.serialization'
+}
+
+android {
+    namespace 'com.yong.newslist'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.yong.newslist"
+        minSdk 24
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+
+        buildConfigField("String", "NEWS_API_KEY", NEWS_API_KEY)
+        buildConfigField("String", "BASE_URL", BASE_URL)
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.4.1'
+    }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
+    implementation 'androidx.activity:activity-compose:1.7.0'
+    implementation "androidx.compose.ui:ui:$compose_ui_version"
+    implementation "androidx.compose.ui:ui-tooling-preview:$compose_ui_version"
+    implementation "androidx.compose.material:material:$compose_ui_version"
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
+    debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
+    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
+
+    // jetpack navigation
+    implementation "androidx.navigation:navigation-compose:$nav_version"
+
+    // hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+
+    // hilt with jetpack navigation
+    implementation "androidx.hilt:hilt-navigation-compose:$hilt_nav_version"
+
+    // retrofit2
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+
+    // kotlin serialization
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlin_serialization_json_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-core:$kotlin_serialization_json_version"
+
+    // retrofit using asConverterFactory
+    implementation "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:$retrofit_serialization_converter"
+
+    // http interceptor
+    implementation "com.squareup.okhttp3:logging-interceptor:$http_interceptor_version"
+}
