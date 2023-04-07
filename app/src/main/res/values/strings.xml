@@ -2,5 +2,6 @@
     <string name="app_name">NewsList</string>
     <string name="article_list">뉴스</string>
     <string name="clip_list">클립</string>
-    <string name="news_detail">상세</string>
+    <string name="article_detail">상세</string>
+    <string name="article_empty_search_result">검색 결과가 없습니다.</string>
 </resources>

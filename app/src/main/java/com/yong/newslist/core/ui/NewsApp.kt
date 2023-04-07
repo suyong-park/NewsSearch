@@ -65,6 +65,5 @@ sealed class BottomTabItem(
     val route: String
 ) {
     object Article : BottomTabItem(R.string.article_list, R.drawable.new_list_foreground, ARTICLE_ROUTE)
-    object Clip :
-        BottomTabItem(R.string.clip_list, R.drawable.bookmark_list_foreground, CLIP_ROUTE)
+    object Clip : BottomTabItem(R.string.clip_list, R.drawable.bookmark_list_foreground, CLIP_ROUTE)
 }

@@ -4,9 +4,9 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class News(
-    val articles: List<Article>?,
-    val status: String?,
-    val totalResults: Int?
+    val articles: List<Article>,
+    val status: String,
+    val totalResults: Int
 )
 
 @Serializable
@@ -16,7 +16,7 @@ data class Article(
     val description: String?,
     val publishedAt: String?,
     val source: Source?,
-    val title: String?,
+    val title: String,
     val url: String?,
     val urlToImage: String?
 )

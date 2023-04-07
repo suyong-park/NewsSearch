@@ -5,6 +5,7 @@ import com.yong.newslist.BuildConfig
 import com.yong.newslist.domain.model.Article
 import com.yong.newslist.domain.model.News
 import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import retrofit2.Retrofit
 import retrofit2.http.GET
@@ -19,15 +20,13 @@ interface NewsNetworkService {
     suspend fun getNewsBySearchWord(
         @Query("q") searchWord: String,
         @Query("apiKey") apiKey: String = BuildConfig.NEWS_API_KEY
-    ): NewsResponse<News>
+    ): News
 }
 
 interface NewsRemoteDataSource {
-    suspend fun getArticlesBySearchWord(searchWord: String): List<Article>?
+    suspend fun getArticlesBySearchWord(searchWord: String): List<Article>
     suspend fun getArticlesBySortStrategy(strategy: String)
 }
-
-data class NewsResponse<T>(val data: T)
 
 @Singleton
 class NewsNetwork @Inject constructor(
@@ -44,8 +43,8 @@ class NewsNetwork @Inject constructor(
         .build()
         .create(NewsNetworkService::class.java)
 
-    override suspend fun getArticlesBySearchWord(searchWord: String): List<Article>? =
-        networkApi.getNewsBySearchWord(searchWord).data.articles
+    override suspend fun getArticlesBySearchWord(searchWord: String): List<Article> =
+        networkApi.getNewsBySearchWord(searchWord).articles
 
     override suspend fun getArticlesBySortStrategy(strategy: String) {}
 }
