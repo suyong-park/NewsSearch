@@ -1,7 +1,7 @@
 package com.yong.newslist.data.di
 
-import com.yong.newslist.data.repository.NewsRepository
-import com.yong.newslist.domain.repository.NewsListRepository
+import com.yong.newslist.data.repository.ArticlesRepository
+import com.yong.newslist.domain.repository.NewsRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -13,6 +13,6 @@ interface RepositoryModule {
 
     @Binds
     fun provideNewsRepository(
-        newsRepository: NewsListRepository
+        articlesRepository: ArticlesRepository
     ): NewsRepository
 }

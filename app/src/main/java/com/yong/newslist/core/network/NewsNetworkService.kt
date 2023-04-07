@@ -2,6 +2,7 @@ package com.yong.newslist.core.network
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.yong.newslist.BuildConfig
+import com.yong.newslist.domain.model.Article
 import com.yong.newslist.domain.model.News
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
@@ -13,24 +14,26 @@ import retrofit2.http.Query
 import javax.inject.Inject
 import javax.inject.Singleton
 
-interface NewsListNetworkService {
+interface NewsNetworkService {
     @GET("everything/")
     suspend fun getNewsBySearchWord(
         @Query("q") searchWord: String,
         @Query("apiKey") apiKey: String = BuildConfig.NEWS_API_KEY
-    ): News
+    ): NewsResponse<News>
 }
 
-interface NewsListRemoteDataSource {
-    suspend fun getNewsBySearchWord(searchWord: String): News
-    suspend fun getNewsBySortStrategy(strategy: String)
+interface NewsRemoteDataSource {
+    suspend fun getArticlesBySearchWord(searchWord: String): List<Article>?
+    suspend fun getArticlesBySortStrategy(strategy: String)
 }
+
+data class NewsResponse<T>(val data: T)
 
 @Singleton
-class NewsListNetwork @Inject constructor(
+class NewsNetwork @Inject constructor(
     json: Json,
     client: OkHttpClient
-) : NewsListRemoteDataSource {
+) : NewsRemoteDataSource {
     private val networkApi = Retrofit.Builder()
         .baseUrl(BuildConfig.BASE_URL)
         .client(client)
@@ -39,9 +42,10 @@ class NewsListNetwork @Inject constructor(
             json.asConverterFactory("application/json".toMediaType())
         )
         .build()
-        .create(NewsListNetworkService::class.java)
+        .create(NewsNetworkService::class.java)
 
-    override suspend fun getNewsBySearchWord(searchWord: String): News = networkApi.getNewsBySearchWord(searchWord)
+    override suspend fun getArticlesBySearchWord(searchWord: String): List<Article>? =
+        networkApi.getNewsBySearchWord(searchWord).data.articles
 
-    override suspend fun getNewsBySortStrategy(strategy: String) {}
+    override suspend fun getArticlesBySortStrategy(strategy: String) {}
 }

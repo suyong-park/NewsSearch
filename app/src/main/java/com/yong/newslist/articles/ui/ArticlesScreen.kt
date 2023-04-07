@@ -1,22 +1,21 @@
-package com.yong.newslist.news.ui
+package com.yong.newslist.articles.ui
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.compose.runtime.Composable
-import com.yong.newslist.domain.model.News
 
 @Composable
-fun NewsRoute(
-    viewModel: NewsViewModel = hiltViewModel()
+fun ArticlesRoute(
+    viewModel: ArticlesViewModel = hiltViewModel()
 ) {
-    NewsScreen(
+    ArticlesScreen(
         onClickNewsItem = viewModel::onClickNewsItem,
         addBookmark = viewModel::addBookmark
     )
 }
 
 @Composable
-fun NewsScreen(
+fun ArticlesScreen(
     onClickNewsItem: (id: Long) -> Unit,
     addBookmark: (id: Long) -> Unit
 ) {

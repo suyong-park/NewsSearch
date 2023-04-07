@@ -2,14 +2,14 @@ package com.yong.newslist.clip.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.yong.newslist.data.repository.NewsRepository
+import com.yong.newslist.domain.usecase.GetArticlesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ClipViewModel @Inject constructor(
-    private val newsRepository: NewsRepository
+    private val articlesUseCase: GetArticlesUseCase
 ) : ViewModel() {
 
     init {
@@ -18,7 +18,7 @@ class ClipViewModel @Inject constructor(
 
     private fun getSavedNewsList() {
         viewModelScope.launch {
-            newsRepository.getSavedNewsList()
+
         }
     }
 

@@ -1,4 +1,4 @@
-package com.yong.newslist.news_detail.ui
+package com.yong.newslist.article_detail.ui
 
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
